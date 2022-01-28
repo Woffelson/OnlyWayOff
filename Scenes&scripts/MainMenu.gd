@@ -20,16 +20,24 @@ func _ready():
 	buttons.append(bt4)
 	jansson = jason.new()
 
-func _process(delta): #goes through buttons and checks if they're focused
-	for bt in buttons:
+func _process(delta):
+	debug() #comment/deletus/yeetus this when game is ready
+	for bt in buttons: #goes through buttons and checks if they're focused
 		if bt.has_focus():
-			focused = true
+			focused = true #ok they are
 			break
-	if !focused:
+	if !focused: #crappy way to make keys work on menu but it works...
 		if Input.is_action_just_pressed("key_down"):
 			bt1.grab_focus()
 		if Input.is_action_just_pressed("key_up"):
 			bt4.grab_focus()
+
+func debug():
+	if Input.is_action_just_pressed("ui_page_up"):
+		print(game)
+		jansson.save_data([game.plaa.position.x,game.plaa.position.y])
+	if Input.is_action_just_pressed("ui_page_down"):
+		jansson.load_data(game.plaa)
 
 func instance_create(obj,creator):#xy
 	var id = obj.instance()
@@ -37,14 +45,14 @@ func instance_create(obj,creator):#xy
 	#id.position = xy#Vector2(x,y)
 	return id
 
-func letsagoo():
+func letsagoo(): #takes in the game
 	remove_child(menu_itself)
-	instance_create(game,self)
+	game = instance_create(game,self).find_node("GameMain") #game is buried deep in that scene......
 
 func _on_Button_pressed(): #continue game
 	jansson.read_jason() #initializes the save file if doesn't exist or just checking it out idk
 	letsagoo()
-	#load_data(player)???
+	jansson.load_data(game.plaa) #does it really work???
 
 func _on_Button2_pressed(): #new game
 	jansson.read_jason() #initializes the save file if doesn't exist or just checking it out idk

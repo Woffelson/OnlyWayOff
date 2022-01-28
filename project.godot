@@ -104,6 +104,11 @@ key_select={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Solid"
+2d_physics/layer_2="Camera"
+
 [physics]
 
 common/enable_pause_aware_picking=true

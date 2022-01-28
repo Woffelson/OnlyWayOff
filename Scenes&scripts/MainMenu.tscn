@@ -46,7 +46,7 @@ focus_neighbour_top = NodePath("../Button4")
 focus_neighbour_bottom = NodePath("../Button2")
 size_flags_horizontal = 6
 size_flags_vertical = 3
-text = "New Game"
+text = "Continue"
 
 [node name="Button2" type="Button" parent="VBoxContainer/Buttons/VBoxContainer"]
 margin_left = 352.0
@@ -58,7 +58,7 @@ focus_neighbour_top = NodePath("../Button")
 focus_neighbour_bottom = NodePath("../Button3")
 size_flags_horizontal = 6
 size_flags_vertical = 3
-text = "Continue"
+text = "New Game"
 
 [node name="Button3" type="Button" parent="VBoxContainer/Buttons/VBoxContainer"]
 margin_left = 352.0
@@ -78,6 +78,8 @@ margin_top = 237.0
 margin_right = 672.0
 margin_bottom = 312.0
 rect_min_size = Vector2( 320, 0 )
+focus_neighbour_top = NodePath("../Button3")
+focus_neighbour_bottom = NodePath("../Button")
 size_flags_horizontal = 6
 size_flags_vertical = 3
 text = "Quit"

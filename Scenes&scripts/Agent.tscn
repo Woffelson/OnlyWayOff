@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes&scripts/Agent.gd" type="Script" id=2]
+[ext_resource path="res://Assets/GFX/light.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 2 )
+
+[node name="Agent" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -32 )
+texture = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="BottomColl" type="Area2D" parent="."]
+position = Vector2( 0, -2 )
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomColl"]
+shape = SubResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="Lineofsight" type="RayCast2D" parent="."]
+cast_to = Vector2( 50, 0 )
+
+[node name="Light2D" type="Light2D" parent="."]
+light_mask = 2
+texture = ExtResource( 3 )
+offset = Vector2( 0, -32 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="BottomColl" to="." method="_on_BottomColl_area_entered"]
+[connection signal="area_exited" from="BottomColl" to="." method="_on_BottomColl_area_exited"]

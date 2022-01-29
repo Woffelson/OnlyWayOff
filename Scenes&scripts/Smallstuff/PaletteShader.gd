@@ -86,7 +86,7 @@ var biomit = {
 		"uloste_5": varit["tvihree"],
 		"uloste_6": varit["vihree"],
 		"uloste_7": varit["vvihree"]},
-	"sinihetki": {"uloste_0": varit["tsyaani"],#tharmaa
+	"sinihetki": {"uloste_0": varit["tharmaa"],#tharmaa/tsyaani
 		"uloste_1": varit["musta"],
 		"uloste_2": varit["tharmaa"],
 		"uloste_3": varit["harmaa"],
@@ -131,8 +131,8 @@ var biomit = {
 		"uloste_2": varit["syaanii"],
 		"uloste_3": varit["sininen"],
 		"uloste_4": varit["vmagenta"],
-		"uloste_5": varit["valkoinen"],
-		"uloste_6": varit["vsininen"],
+		"uloste_5": varit["vsininen"],#valkoinen
+		"uloste_6": varit["valkoinen"],#vsininen
 		"uloste_7": varit["vsyaani"]}
 }
 

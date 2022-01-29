@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme1.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes&scripts/Smallstuff/TextItself.tscn" type="PackedScene" id=2]
+
+[node name="DisplayText" type="MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplit" type="HSplitContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+collapsed = true
+dragger_visibility = 1
+
+[node name="Panel" type="Panel" parent="HSplit"]
+margin_right = 256.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_vertical = 3
+
+[node name="TextItself" parent="HSplit" instance=ExtResource( 2 )]

@@ -1,11 +1,69 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/GFX/Hahmo/temppis.png" type="Texture" id=1]
 [ext_resource path="res://Scenes&scripts/Agent.gd" type="Script" id=2]
-[ext_resource path="res://Assets/GFX/light.png" type="Texture" id=3]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0005.png" type="Texture" id=4]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0002.png" type="Texture" id=5]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0003.png" type="Texture" id=6]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0000.png" type="Texture" id=7]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0001.png" type="Texture" id=8]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0000.png" type="Texture" id=9]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0007.png" type="Texture" id=10]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0005.png" type="Texture" id=11]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0006.png" type="Texture" id=12]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0003.png" type="Texture" id=13]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0008.png" type="Texture" id=14]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0002.png" type="Texture" id=15]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0004.png" type="Texture" id=16]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0007.png" type="Texture" id=17]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0001.png" type="Texture" id=18]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0004.png" type="Texture" id=19]
+[ext_resource path="res://Assets/GFX/Hahmo/redbull0006.png" type="Texture" id=20]
+[ext_resource path="res://Assets/GFX/Hahmo/Hahmo0008.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24, 16 )
+extents = Vector2( 8, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 4 ), ExtResource( 20 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "glide",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "idle",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "drop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 2, 2 )
@@ -17,8 +75,23 @@ script = ExtResource( 2 )
 position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
+[node name="Wings" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 3 )
+animation = "glide"
+playing = true
+offset = Vector2( 0, -56 )
+
+[node name="Hahmo" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 4 )
+animation = "jump"
+playing = true
+offset = Vector2( 0, -56 )
+
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -32 )
+visible = false
+position = Vector2( 0, -56 )
 texture = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -37,11 +110,6 @@ shape = SubResource( 2 )
 
 [node name="Lineofsight" type="RayCast2D" parent="."]
 cast_to = Vector2( 50, 0 )
-
-[node name="Light2D" type="Light2D" parent="."]
-light_mask = 0
-texture = ExtResource( 3 )
-offset = Vector2( 0, -32 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="BottomColl" to="." method="_on_BottomColl_area_entered"]

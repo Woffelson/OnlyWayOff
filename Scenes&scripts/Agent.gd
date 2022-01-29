@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 onready var timer = $Timer
+onready var hahmo = $Hahmo
+onready var wings = $Wings
 
 const TEST = true
 var MAXSPD = 250
@@ -10,7 +12,7 @@ var FALLCAP = 800
 #const JUMPMAX = 100
 var GRAV = 80
 var FRIC = 40
-var GLIDE = 0#9
+var GLIDE = 9#0#9
 var fallcap = 800
 var hor = 0; var ver = 0; var dir = -1 #active and passive direction variables
 var motion = Vector2()
@@ -44,7 +46,7 @@ func _physics_process(_delta):
 	if player: #does following code work after move_and_slide??? -yes, I guess
 		emit_signal("moving",position) #for camera
 		hor = int(Input.is_action_pressed("key_right")) - int(Input.is_action_pressed("key_left"))
-		Jump(Input.is_action_just_pressed("key_up"),Input.is_action_pressed("key_up"))
+		Jump(Input.is_action_just_pressed("key_A"),Input.is_action_pressed("key_A"))
 		Down(Input.is_action_pressed("key_down"),2) #drop down one-way block
 	else: #BOTS/NPC!!!
 		if target != null: #if there's target to follow
@@ -60,6 +62,31 @@ func _physics_process(_delta):
 		else:
 			Down(false,2)
 			if ver < 0: Jump(true,true)
+	grafiks()
+
+func grafiks():
+	if hor == 1: 
+		hahmo.flip_h = true
+		wings.flip_h = true
+	elif hor == -1:
+		hahmo.flip_h = false
+		wings.flip_h = false
+	if motion.y < 0:
+		hahmo.animation = "jump"
+		wings.animation = "run"
+	elif motion.y > 0:
+		if GLIDE > 0 && Input.is_action_pressed("key_A"):
+			wings.animation = "glide"
+		else:
+			hahmo.animation = "drop"
+			wings.animation = "run"
+	if is_on_floor():
+		if abs(motion.x) > 0:
+			hahmo.animation = "run"
+			wings.animation = "run"
+		else: 
+			hahmo.animation = "idle"
+			wings.animation = "idle"
 
 func fysiks():
 	if abs(hor) > 0: dir = hor #dir= -1or1 (position.angle_to_point(get_global_mouse_position()))

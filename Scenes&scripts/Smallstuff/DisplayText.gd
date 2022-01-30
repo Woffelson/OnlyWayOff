@@ -6,11 +6,13 @@ onready var timer = $TekstiKontti/RText/Timer
 var typewrite_spede = 0.05
 var font
 var altfont = false #controls the use of bbcode monospace which has unifont set (FOR NOW at least)
+var custom_text = ""
 
 func _ready():
 	if altfont: rtext.push_mono() #push_font() would make more sense...
 	rtext.set_visible_characters(0) #no characters
 	rtext.set_percent_visible(0) #not even a portion
+	rtext.bbcode_text = custom_text
 
 func _on_Timer_timeout():
 	if rtext.percent_visible >= 1:

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var glimmer = preload("res://Scenes&scripts/Smallstuff/Glimmer.tscn")
 onready var timer = $Timer
 onready var hahmo = $Hahmo
 onready var wings = $Wings
@@ -24,6 +25,9 @@ var target = null
 var approach_range = Vector2(8,64) #threshold for bots to stop following in xy directions
 var kiertoaika = 1
 var in_liquid = false
+var powerups = [true,false] #orb and glide?
+var orb = null
+var orb_possession = true
 
 signal moving(posi)
 
@@ -46,8 +50,10 @@ func _physics_process(_delta):
 	if player: #does following code work after move_and_slide??? -yes, I guess
 		emit_signal("moving",position) #for camera
 		hor = int(Input.is_action_pressed("key_right")) - int(Input.is_action_pressed("key_left"))
-		Jump(Input.is_action_just_pressed("key_A"),Input.is_action_pressed("key_A"))
+		#Jump(Input.is_action_just_pressed("key_A"),Input.is_action_pressed("key_A"))
+		Jump(Input.is_action_just_pressed("key_up"),Input.is_action_pressed("key_up"))
 		Down(Input.is_action_pressed("key_down"),2) #drop down one-way block
+		Shoot(Input.is_action_just_pressed("key_A"))
 	else: #BOTS/NPC!!!
 		if target != null: #if there's target to follow
 			if abs(position.x-target.x) > approach_range.x: #target.position
@@ -75,7 +81,7 @@ func grafiks():
 		hahmo.animation = "jump"
 		wings.animation = "run"
 	elif motion.y > 0:
-		if GLIDE > 0 && Input.is_action_pressed("key_A"):
+		if GLIDE > 0 && (Input.is_action_pressed("key_B") || Input.is_action_pressed("key_up")):
 			wings.animation = "glide"
 		else:
 			hahmo.animation = "drop"
@@ -102,7 +108,9 @@ func fysiks():
 func Jump(trigger,hold): #might need prevention conditions when hurt etc
 	if trigger: #initial jump
 		if in_liquid: motion.y = -JUMP/2 #swim
-		elif is_on_floor(): motion.y = -JUMP #elif jumps[0]
+		elif is_on_floor():
+			motion.y = -JUMP #elif jumps[0]
+			$Jumpsound.play()
 	if hold: #constant jump/flying/etc.
 		if motion.y > 0 && GLIDE > 0:#going down
 			motion.y -= GLIDE
@@ -119,6 +127,18 @@ func Down(tester,layer):
 		set_collision_mask_bit(layer,false)
 	else: set_collision_mask_bit(layer,true)
 
+func Shoot(pressed):
+	if powerups[0]:
+		if pressed:
+			if orb_possession && !is_instance_valid(orb):#orb == null:#!real_parent.get_node(orb):
+				orb = instance_create(glimmer,position.x,position.y-64,real_parent)
+				orb.apply_impulse(position,Vector2(200*dir,0))
+			elif orb != null:
+				orb.queue_free()#real_parent.remove_child(orb)
+				orb_possession = true
+			else: orb_possession = true
+			
+
 func detection(one_to_be_detected,detect_range): #distance based detection, alt: raycast, simple alarm trig?
 	if one_to_be_detected != null:
 #		if (position-detected.position).length() < detect_range:
@@ -128,9 +148,9 @@ func detection(one_to_be_detected,detect_range): #distance based detection, alt:
 		if abs(tmp.x) < detect_range && abs(tmp.y) < detect_range/2: return true
 		else: return false #if out of bounadirues
 
-func instance_create(obj,x,y):
+func instance_create(obj,x,y,creator):
 	var id = obj.instance()
-	add_child(id) #ysort.
+	creator.add_child(id) #ysort.
 	id.position = Vector2(x,y)
 	return id
 

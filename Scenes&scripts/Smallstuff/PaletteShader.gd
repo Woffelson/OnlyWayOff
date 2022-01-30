@@ -46,7 +46,7 @@ var soossi = {"soossi_0": varit["musta"],#pohja
 	"soossi_7": varit["vpuntest"]#vaaleavari
 }
 var biomit = {
-	"testibiom": {"uloste_0": varit["musta"],
+	"testibiom": {"uloste_0": varit["musta"],#0
 		"uloste_1": varit["tharmaa"],
 		"uloste_2": varit["tvioletti"],
 		"uloste_3": varit["violetti"],
@@ -54,7 +54,7 @@ var biomit = {
 		"uloste_5": varit["tmagenta"],
 		"uloste_6": varit["magenta"],
 		"uloste_7": varit["vmagenta"]},
-	"mustavalko": {"uloste_0": varit["musta"],
+	"mustavalko": {"uloste_0": varit["musta"],#1
 		"uloste_1": varit["tharmaa"],
 		"uloste_2": varit["harmaa"],
 		"uloste_3": varit["vharmaa"],
@@ -62,7 +62,7 @@ var biomit = {
 		"uloste_5": varit["tharmaa"],
 		"uloste_6": varit["harmaa"],
 		"uloste_7": varit["vharmaa"]},
-	"umbra": {"uloste_0": varit["musta"],
+	"umbra": {"uloste_0": varit["musta"],#2
 		"uloste_1": varit["tharmaa"],
 		"uloste_2": varit["tsyaani"],#harmaa
 		"uloste_3": varit["syaanii"],#vharmaa
@@ -70,7 +70,7 @@ var biomit = {
 		"uloste_5": varit["ruskea"],
 		"uloste_6": varit["tkeltainen"],
 		"uloste_7": varit["vkeltainen"]},
-	"keltaranta": {"uloste_0": varit["musta"],
+	"keltaranta": {"uloste_0": varit["musta"],#3
 		"uloste_1": varit["tsyaani"],
 		"uloste_2": varit["syaani"],
 		"uloste_3": varit["vsininen"],
@@ -78,7 +78,7 @@ var biomit = {
 		"uloste_5": varit["tkeltainen"],
 		"uloste_6": varit["keltainen"],
 		"uloste_7": varit["vkeltainen"]},
-	"ikivihree": {"uloste_0": varit["musta"],
+	"ikivihree": {"uloste_0": varit["musta"],#4
 		"uloste_1": varit["tharmaa"],
 		"uloste_2": varit["tsyaani"],
 		"uloste_3": varit["syaani"],
@@ -86,7 +86,7 @@ var biomit = {
 		"uloste_5": varit["tvihree"],
 		"uloste_6": varit["vihree"],
 		"uloste_7": varit["vvihree"]},
-	"sinihetki": {"uloste_0": varit["tharmaa"],#tharmaa/tsyaani
+	"sinihetki": {"uloste_0": varit["tharmaa"],#5 tharmaa/tsyaani
 		"uloste_1": varit["musta"],
 		"uloste_2": varit["tharmaa"],
 		"uloste_3": varit["harmaa"],
@@ -94,7 +94,7 @@ var biomit = {
 		"uloste_5": varit["tsyaani"],
 		"uloste_6": varit["syaani"],
 		"uloste_7": varit["vsininen"]},
-	"liila": {"uloste_0": varit["tsyaani"],#tharmaa
+	"liila": {"uloste_0": varit["tsyaani"],#6 tharmaa
 		"uloste_1": varit["musta"],
 		"uloste_2": varit["tharmaa"],
 		"uloste_3": varit["sininen"],#violetti
@@ -102,7 +102,7 @@ var biomit = {
 		"uloste_5": varit["tvioletti"],
 		"uloste_6": varit["violetti"],
 		"uloste_7": varit["vsininen"]},
-	"punamulta": {"uloste_0": varit["tharmaa"],#ruskea
+	"punamulta": {"uloste_0": varit["tharmaa"],#7 ruskea
 		"uloste_1": varit["musta"],
 		"uloste_2": varit["tharmaa"],
 		"uloste_3": varit["tpunainen"],
@@ -110,7 +110,7 @@ var biomit = {
 		"uloste_5": varit["ruskea"],
 		"uloste_6": varit["punainenn"],
 		"uloste_7": varit["voranssi"]},
-	"inferno": {"uloste_0": varit["musta"],
+	"inferno": {"uloste_0": varit["musta"], #8
 		"uloste_1": varit["tharmaa"],
 		"uloste_2": varit["ruskea"],
 		"uloste_3": varit["tkeltainen"],
@@ -118,7 +118,7 @@ var biomit = {
 		"uloste_5": varit["tpunainen"],
 		"uloste_6": varit["punainen"],
 		"uloste_7": varit["oranssi"]},
-	"pastelli": {"uloste_0": varit["musta"],
+	"pastelli": {"uloste_0": varit["musta"], #9
 		"uloste_1": varit["tsyaani"],
 		"uloste_2": varit["syaani"],
 		"uloste_3": varit["magenta"],
@@ -126,7 +126,7 @@ var biomit = {
 		"uloste_5": varit["tmagenta"],
 		"uloste_6": varit["oranssi"],
 		"uloste_7": varit["vkeltainen"]},
-	"ikirouta": {"uloste_0": varit["musta"],
+	"ikirouta": {"uloste_0": varit["musta"], #10
 		"uloste_1": varit["tsyaani"],
 		"uloste_2": varit["syaanii"],
 		"uloste_3": varit["sininen"],
@@ -137,10 +137,7 @@ var biomit = {
 }
 
 func _ready():
-	out = biomit.keys()[2]#0 "testibiom"
-	for graffat in get_children():
-		source = graffat
-		sheidi(source,biomit[out])
+	setup(1)
 	
 func _input(_event):
 	if Input.is_action_just_pressed("ui_home") && debug:
@@ -156,10 +153,15 @@ func change_set(biomi_id):
 					out = biomit.keys()[biomi+1]
 					break
 	else: out = biomi_id #use the relevant name specified in biome palette dictionary (biomit)!
+	setup(null)
+	#sheidi(source,biomit[out])
+
+func setup(biom_key):
+	if biom_key != null:
+		out = biomit.keys()[biom_key]#0 "testibiom"
 	for graffat in get_children():
 		source = graffat
 		sheidi(source,biomit[out])
-	#sheidi(source,biomit[out])
 
 func sheidi(spr,ulos):
 	for i in 8:

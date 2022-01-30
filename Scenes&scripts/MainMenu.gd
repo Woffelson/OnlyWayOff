@@ -11,6 +11,7 @@ onready var bt4 = $VBoxContainer/Buttons/VBoxContainer/Button4
 onready var speis = $VBoxContainer/Speissss
 onready var paussitaso = $PauseLayer
 
+var instructions = "You can move with arrows or WASD, Z and X might do something, esc pauses game etc. Have fun, there's not much sensible to do."
 var menu_itself = null
 #var pause_menu = null
 var game = null
@@ -44,6 +45,7 @@ func _process(_delta):
 		var pauze = instance_create(pause,paussitaso)
 		pauze.playerfinder = playerfinder
 		pauze.parentti = self
+		pauze.instructions = instructions
 		get_tree().paused = true
 
 func debug():
@@ -77,8 +79,8 @@ func _on_Button2_pressed(): #new game
 	letsagoo()
 
 func _on_Button3_pressed():
-	instance_create(teksti,speis)
-	pass # Replace with function body.
+	var txt = instance_create(teksti,speis)
+	txt.rtext.bbcode_text = instructions
 
 func _on_Button4_pressed():
 	get_tree().quit()

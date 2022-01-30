@@ -4,7 +4,7 @@ var gui = 1 #0: gui offset disabled, 1: gui offset enabled
 var guioffset = 128
 var offsetit = [128,64]
 
-signal room_change(pos,scl)
+signal room_change(pos,scl,biom)
 
 func _ready():
 	pass # Replace with function body.
@@ -29,7 +29,7 @@ func _on_Area2D_area_entered(area):
 	limit_left = collision_shape.position.x+area.position.x - size.x
 	limit_bottom = limit_top + size.y*2 +guioffset*gui
 	limit_right = limit_left + size.x*2
-	emit_signal("room_change",Vector2(limit_left,limit_top),area.scale)
+	emit_signal("room_change",Vector2(limit_left,limit_top),area.scale,area.biomi)
 
 func _siirtyma(): #transition between rooms, not gonna use in this project I guess...
 	get_tree().paused = true

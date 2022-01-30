@@ -2,16 +2,19 @@ extends MarginContainer
 
 onready var jason = preload("res://Scenes&scripts/jason.gd")
 onready var game = preload("res://Scenes&scripts/MainView.tscn")
+onready var teksti = preload("res://Scenes&scripts/Smallstuff/TextItself.tscn")
 onready var bt1 = $VBoxContainer/Buttons/VBoxContainer/Button
 onready var bt2 = $VBoxContainer/Buttons/VBoxContainer/Button2
 onready var bt3 = $VBoxContainer/Buttons/VBoxContainer/Button3
 onready var bt4 = $VBoxContainer/Buttons/VBoxContainer/Button4
+onready var speis = $VBoxContainer/Speissss
 
 var jansson = null
 var buttons = []
 var focused = false
 var playerfinder = null
 var parentti = null
+var instructions = ""
 
 func _ready():
 	buttons.append(bt1)
@@ -55,7 +58,8 @@ func _on_Button2_pressed(): #back to main menu
 	pause_off()
 
 func _on_Button3_pressed():
-	pass # Replace with function body.
+	var txt = instance_create(teksti,speis)
+	txt.rtext.bbcode_text = instructions
 
 func _on_Button4_pressed():
 	get_tree().quit()

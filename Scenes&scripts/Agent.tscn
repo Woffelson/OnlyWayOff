@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/GFX/Hahmo/temppis.png" type="Texture" id=1]
 [ext_resource path="res://Scenes&scripts/Agent.gd" type="Script" id=2]
+[ext_resource path="res://Assets/SFX/jump.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/GFX/Hahmo/redbull0005.png" type="Texture" id=4]
 [ext_resource path="res://Assets/GFX/Hahmo/redbull0002.png" type="Texture" id=5]
 [ext_resource path="res://Assets/GFX/Hahmo/redbull0003.png" type="Texture" id=6]
@@ -68,7 +69,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 2, 2 )
 
-[node name="Agent" type="KinematicBody2D"]
+[node name="Agent" type="KinematicBody2D" groups=["Agent"]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -85,7 +86,7 @@ offset = Vector2( 0, -56 )
 [node name="Hahmo" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 4 )
-animation = "jump"
+animation = "drop"
 playing = true
 offset = Vector2( 0, -56 )
 
@@ -110,6 +111,9 @@ shape = SubResource( 2 )
 
 [node name="Lineofsight" type="RayCast2D" parent="."]
 cast_to = Vector2( 50, 0 )
+
+[node name="Jumpsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="BottomColl" to="." method="_on_BottomColl_area_entered"]

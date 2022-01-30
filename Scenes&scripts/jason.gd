@@ -1,6 +1,6 @@
 extends Node #this script handles the json format save file
 
-var jason = "res://game.json" #json file path, change in finished gamed into: user://data.json
+var jason = "user://game.json" #json file path, change in finished gamed into: user://data.json
 var d = {}
 var default_d = {"position":[512,168], "powerups": [false,false]} #default values
 

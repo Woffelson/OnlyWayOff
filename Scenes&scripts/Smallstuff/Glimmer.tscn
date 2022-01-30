@@ -7,8 +7,8 @@
 
 [node name="Glimmer" type="RigidBody2D" groups=["Valo"]]
 light_mask = 0
-collision_layer = 17
-collision_mask = 17
+collision_layer = 21
+collision_mask = 21
 gravity_scale = 4.04
 can_sleep = false
 

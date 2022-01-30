@@ -45,7 +45,7 @@ func _siirtyma(): #transition between rooms, not gonna use in this project I gue
 	get_tree().paused = false
 
 func zoomer(area):
-	if (area.scale.x < 1 || area.scale.y < 1) || (Input.is_action_pressed("ui_end")):
+	if (area.scale.x < 1 || area.scale.y < 1):# || (Input.is_action_pressed("ui_end")):
 		zoom = Vector2(0.5,0.5)
 		guioffset = offsetit[1]
 		#offset.y = guioffset #still a bit ad hoc purkka solution, but oh well...

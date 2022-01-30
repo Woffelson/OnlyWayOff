@@ -6,7 +6,12 @@ var portti = null #port should be opened by lit lamp in same room
 func lighten(b):
 	$Light2D.hide() #hide the darkener light node
 	biomi = b
-	portti.position.y -= 64
+	if portti != null:
+		var colshape = portti.get_node("Sheippi")
+		if colshape.is_visible():
+			portti.position.y -= 64
+			colshape.hide()
+			
 
 func _on_Room_area_entered(area):
 	if area.is_in_group("Lamppu"):

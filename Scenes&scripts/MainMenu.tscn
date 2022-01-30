@@ -27,6 +27,13 @@ margin_bottom = 256.0
 rect_min_size = Vector2( 0, 256 )
 size_flags_horizontal = 3
 
+[node name="Label" type="Label" parent="VBoxContainer/Title"]
+margin_top = 120.0
+margin_right = 1024.0
+margin_bottom = 136.0
+text = "Only Way Out (By Woffelson, GGJ 2022)"
+align = 1
+
 [node name="Buttons" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 260.0
 margin_right = 1024.0

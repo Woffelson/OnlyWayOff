@@ -191,6 +191,8 @@ func _on_Collector_area_entered(area):
 	if area.is_in_group("orb"):
 		powerups[0] = true
 		area.queue_free()
+		$Bower.play()
 	if area.is_in_group("glider"):
 		powerups[1] = true
 		area.queue_free()
+		$Bower.play()

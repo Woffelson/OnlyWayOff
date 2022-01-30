@@ -29,3 +29,4 @@ energy = 0.5
 mode = 1
 
 [connection signal="area_entered" from="." to="." method="_on_Room_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Room_body_entered"]

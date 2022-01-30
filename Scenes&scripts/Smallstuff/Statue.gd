@@ -22,6 +22,11 @@ func _process(_delta):
 		right.position.x = eyepos[1].x - sign(position.x-player.position.x)
 		right.position.y = eyepos[1].y - sign(position.y-75-player.position.y)
 
+func hibernate(): #when loses the player on sight or something
+	player = null
+	left.hide()
+	right.hide()
+
 func _on_Statue_body_entered(body):
 	if body.is_in_group("Agent"):
 		if player == null:

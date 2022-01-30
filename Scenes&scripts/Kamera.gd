@@ -3,6 +3,7 @@ extends Camera2D
 var gui = 1 #0: gui offset disabled, 1: gui offset enabled
 var guioffset = 128
 var offsetit = [128,64]
+var room = null #for checking if player is in the same room than some other actions...
 
 signal room_change(pos,scl,biom)
 
@@ -14,6 +15,7 @@ func _ready():
 
 func _on_Area2D_area_entered(area):
 	#siirtyma() #transition in
+	room = area #we've entered the room, that's it
 	var collision_shape = area.get_node("CollisionShape2D")
 	var size = collision_shape.shape.extents*area.scale #old: area.get_parent().scale
 	zoomer(area)
@@ -33,6 +35,9 @@ func _on_Area2D_area_entered(area):
 	
 	var txt = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiGUI/CanvasLayer/DisplayText/HSplit/TextItself")
 	txt.rtext.bbcode_text = "" #maybe weird place to reset text gui but oh well
+	var stts = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiPeli/GameMain/Statues").get_children()
+	for statue in stts:
+		statue.hibernate() #also super weird to do here... but since we're crossing rooms...
 
 func _siirtyma(): #transition between rooms, not gonna use in this project I guess...
 	get_tree().paused = true

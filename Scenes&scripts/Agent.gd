@@ -13,7 +13,7 @@ var FALLCAP = 800
 #const JUMPMAX = 100
 var GRAV = 80
 var FRIC = 40
-var GLIDE = 0#9
+const GLIDE = 9
 var fallcap = 800
 var hor = 0; var ver = 0; var dir = -1 #active and passive direction variables
 var motion = Vector2()
@@ -25,7 +25,7 @@ var target = null
 var approach_range = Vector2(8,64) #threshold for bots to stop following in xy directions
 var kiertoaika = 1
 var in_liquid = false
-var powerups = [true,false] #orb and glide?
+var powerups = [false,false] #orb and glide?
 var orb = null
 var orb_possession = true
 
@@ -81,7 +81,7 @@ func grafiks():
 		hahmo.animation = "jump"
 		wings.animation = "run"
 	elif motion.y > 0:
-		if GLIDE > 0 && (Input.is_action_pressed("key_B") || Input.is_action_pressed("key_up")):
+		if powerups[1] && (Input.is_action_pressed("key_B") || Input.is_action_pressed("key_up")):
 			wings.animation = "glide"
 		else:
 			hahmo.animation = "drop"
@@ -93,7 +93,7 @@ func grafiks():
 		else: 
 			hahmo.animation = "idle"
 			wings.animation = "idle"
-	if GLIDE > 0:
+	if powerups[1]:
 		wings.show()
 	else: wings.hide()
 
@@ -115,7 +115,7 @@ func Jump(trigger,hold): #might need prevention conditions when hurt etc
 			motion.y = -JUMP #elif jumps[0]
 			$Jumpsound.play()
 	if hold: #constant jump/flying/etc.
-		if motion.y > 0 && GLIDE > 0:#going down
+		if motion.y > 0 && powerups[1]: #GLIDE > 0:#going down
 			motion.y -= GLIDE
 			fallcap = FALLCAP/20#25
 		else: #going up
@@ -171,13 +171,9 @@ func _on_Timer_timeout():
 	if !player: kierto()
 
 func _on_BottomColl_area_entered(_area): #in liquid
-	#movez.inliquid()
 	MAXSPD = 50
 	ACCEL = 20
-	#JUMP = 500/4
 	FALLCAP = 50 #50 for water, 1 for swamp/moss
-	#GRAV = 10
-	#FRIC = 5
 	in_liquid = true
 	motion.y = 0 #...?
 
@@ -190,3 +186,11 @@ func _on_BottomColl_area_exited(_area): #out liquid
 	#GRAV = 20
 	FRIC = 20#40
 	in_liquid = false
+
+func _on_Collector_area_entered(area):
+	if area.is_in_group("orb"):
+		powerups[0] = true
+		area.queue_free()
+	if area.is_in_group("glider"):
+		powerups[1] = true
+		area.queue_free()

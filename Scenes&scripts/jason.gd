@@ -2,7 +2,7 @@ extends Node #this script handles the json format save file
 
 var jason = "res://game.json" #json file path, change in finished gamed into: user://data.json
 var d = {}
-var default_d = {"position":[512,168]} #default values
+var default_d = {"position":[512,168], "powerups": [false,false]} #default values
 
 func read_jason(): #load
 	var file = File.new()
@@ -31,11 +31,13 @@ func delete_jason(): #erase
 func reset_data():
 	d = default_d.duplicate(true)
 
-func save_data(pos): #determines all the exact stuff to be saved
+func save_data(pos,pups): #determines all the exact stuff to be saved
 	d["position"] = pos
+	d["powerups"] = pups
 	write_jason()
 
 func load_data(player): #loads all the relevant stuff for the game itself
 	read_jason()
 	player.position.x = d["position"][0]
 	player.position.y = d["position"][1]
+	player.powerups = d["powerups"]

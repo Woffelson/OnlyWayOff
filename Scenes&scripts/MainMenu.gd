@@ -32,7 +32,7 @@ func _ready():
 	jansson = jason.new()
 
 func _process(_delta):
-	debug() #comment/deletus/yeetus this when game is ready
+	#debug() #comment/deletus/yeetus this when game is ready
 	for bt in buttons: #goes through buttons and checks if they're focused
 		if bt.has_focus():
 			focused = true #ok they are
@@ -49,12 +49,12 @@ func _process(_delta):
 		pauze.instructions = instructions
 		get_tree().paused = true
 
-func debug():
-	if Input.is_action_just_pressed("ui_page_up"):
-		print(game)
-		jansson.save_data([game.plaa.position.x,game.plaa.position.y])
-	if Input.is_action_just_pressed("ui_page_down"):
-		jansson.load_data(game.plaa)
+#func debug():
+#	if Input.is_action_just_pressed("ui_page_up"):
+#		print(game)
+#		jansson.save_data([game.plaa.position.x,game.plaa.position.y])
+#	if Input.is_action_just_pressed("ui_page_down"):
+#		jansson.load_data(game.plaa)
 
 func instance_create(obj,creator):#xy
 	var id = obj.instance()

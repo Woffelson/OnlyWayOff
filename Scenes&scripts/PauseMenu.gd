@@ -52,7 +52,7 @@ func _on_Button_pressed(): #back in the game!
 
 func _on_Button2_pressed(): #back to main menu
 	var possi = [playerfinder.position.x,playerfinder.position.y]
-	jansson.save_data(possi)
+	jansson.save_data(possi,playerfinder.powerups)
 	parentti.remove_child(parentti.game_view)
 	parentti.add_child(parentti.menu_itself)
 	parentti.focused = false

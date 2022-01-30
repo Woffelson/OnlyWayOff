@@ -19,5 +19,6 @@ func _on_Lampp_body_entered(body):
 	if body.is_in_group("Valo"):
 		spr.animation = "on"
 		emit_signal("lit",9)
-		shaderi.setup(9)
+		var kamsu = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiPeli/GameMain").cam
+		if kamsu.room == room: shaderi.setup(9) #huhhuh.... bugi listitty vähä kovemmal myrkyl
 		#get_parent

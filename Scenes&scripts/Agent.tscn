@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Assets/GFX/Hahmo/temppis.png" type="Texture" id=1]
 [ext_resource path="res://Scenes&scripts/Agent.gd" type="Script" id=2]
@@ -71,6 +71,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 2, 2 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 16 )
+
 [node name="Agent" type="KinematicBody2D" groups=["Agent"]]
 script = ExtResource( 2 )
 
@@ -107,6 +110,14 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomColl"]
 shape = SubResource( 2 )
 
+[node name="Collector" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector"]
+position = Vector2( 0, -16 )
+shape = SubResource( 5 )
+
 [node name="Position2D" type="Position2D" parent="."]
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -126,3 +137,4 @@ stream = ExtResource( 23 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="BottomColl" to="." method="_on_BottomColl_area_entered"]
 [connection signal="area_exited" from="BottomColl" to="." method="_on_BottomColl_area_exited"]
+[connection signal="area_entered" from="Collector" to="." method="_on_Collector_area_entered"]

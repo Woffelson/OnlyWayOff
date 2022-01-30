@@ -45,6 +45,7 @@ func instance_create(obj,creator):#xy
 func pause_off():
 	get_tree().paused = false
 	queue_free()
+	parentti.klik.play()
 
 func _on_Button_pressed(): #back in the game!
 	pause_off()
@@ -60,6 +61,7 @@ func _on_Button2_pressed(): #back to main menu
 func _on_Button3_pressed():
 	var txt = instance_create(teksti,speis)
 	txt.rtext.bbcode_text = instructions
+	parentti.klik.play()
 
 func _on_Button4_pressed():
 	get_tree().quit()

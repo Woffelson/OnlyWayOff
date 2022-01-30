@@ -10,9 +10,13 @@ var custom_text = ""
 
 func _ready():
 	if altfont: rtext.push_mono() #push_font() would make more sense...
+	reset()
+	rtext.bbcode_text = custom_text
+
+func reset():
 	rtext.set_visible_characters(0) #no characters
 	rtext.set_percent_visible(0) #not even a portion
-	rtext.bbcode_text = custom_text
+	timer.start()
 
 func _on_Timer_timeout():
 	if rtext.percent_visible >= 1:

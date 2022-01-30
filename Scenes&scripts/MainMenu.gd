@@ -10,6 +10,7 @@ onready var bt3 = $VBoxContainer/Buttons/VBoxContainer/Button3
 onready var bt4 = $VBoxContainer/Buttons/VBoxContainer/Button4
 onready var speis = $VBoxContainer/Speissss
 onready var paussitaso = $PauseLayer
+onready var klik = $klik
 
 var instructions = "You can move with arrows or WASD, Z and X might do something, esc pauses game etc. Have fun, there's not much sensible to do."
 var menu_itself = null
@@ -72,15 +73,18 @@ func _on_Button_pressed(): #continue game
 	jansson.read_jason() #initializes the save file if doesn't exist or just checking it out idk
 	letsagoo()
 	jansson.load_data(game.plaa) #does it really work???
+	klik.play()
 
 func _on_Button2_pressed(): #new game
 	jansson.read_jason() #initializes the save file if doesn't exist or just checking it out idk
 	jansson.delete_jason() #cleans any previous save files
 	letsagoo()
+	klik.play()
 
 func _on_Button3_pressed():
 	var txt = instance_create(teksti,speis)
 	txt.rtext.bbcode_text = instructions
+	klik.play()
 
 func _on_Button4_pressed():
 	get_tree().quit()

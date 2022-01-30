@@ -2,7 +2,7 @@ extends Node2D
 
 var source #get asset...
 var out #biomi
-var debug = true
+var debug = false#true
 var varit = {"musta": Vector3(31,31,31)/255,
 	"tharmaa": Vector3(63,63,63)/255,
 	"harmaa": Vector3(124,124,124)/255,

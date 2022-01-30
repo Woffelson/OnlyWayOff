@@ -6,7 +6,6 @@ onready var start = $Start.position
 onready var shaderi = $Navigation2D/PaletteShader
 #onready var jason = preload("res://jason.gd")
 
-var gridi = null
 var plaa = null
 var huonehahmot = []
 var cam = null

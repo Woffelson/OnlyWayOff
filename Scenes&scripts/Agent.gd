@@ -13,7 +13,7 @@ var FALLCAP = 800
 #const JUMPMAX = 100
 var GRAV = 80
 var FRIC = 40
-var GLIDE = 9#0#9
+var GLIDE = 0#9
 var fallcap = 800
 var hor = 0; var ver = 0; var dir = -1 #active and passive direction variables
 var motion = Vector2()
@@ -93,6 +93,9 @@ func grafiks():
 		else: 
 			hahmo.animation = "idle"
 			wings.animation = "idle"
+	if GLIDE > 0:
+		wings.show()
+	else: wings.hide()
 
 func fysiks():
 	if abs(hor) > 0: dir = hor #dir= -1or1 (position.angle_to_point(get_global_mouse_position()))
@@ -133,9 +136,11 @@ func Shoot(pressed):
 			if orb_possession && !is_instance_valid(orb):#orb == null:#!real_parent.get_node(orb):
 				orb = instance_create(glimmer,position.x,position.y-64,real_parent)
 				orb.apply_impulse(position,Vector2(200*dir,0))
+				$Orbout.play()
 			elif orb != null:
 				orb.queue_free()#real_parent.remove_child(orb)
 				orb_possession = true
+				$Orbin.play()
 			else: orb_possession = true
 			
 

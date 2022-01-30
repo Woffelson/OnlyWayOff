@@ -9,3 +9,4 @@ func lighten(b):
 func _on_Room_area_entered(area):
 	if area.is_in_group("Lamppu"):
 		area.connect("lit",self,"lighten")
+		area.room = self

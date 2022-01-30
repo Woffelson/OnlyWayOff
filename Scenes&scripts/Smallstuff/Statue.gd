@@ -6,9 +6,11 @@ onready var timer = $Timer
 
 var eyepos = [] #set default values here
 var player = null
+var tekstigui = null
 export var slogan = "haist vit"
 
 func _ready():
+	tekstigui = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiGUI/CanvasLayer/DisplayText/HSplit/TextItself")
 	eyepos.append(left.position)
 	eyepos.append(right.position)
 	#player = get_tree().get_root().find_node("Agent") #not work stupid
@@ -26,6 +28,8 @@ func _on_Statue_body_entered(body):
 			$Moi.play()
 			left.show()
 			right.show()
+			tekstigui.rtext.bbcode_text = slogan
+			tekstigui.reset()
 		player = body
 
 func _on_Timer_timeout():

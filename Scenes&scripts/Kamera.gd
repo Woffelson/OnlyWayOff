@@ -30,6 +30,9 @@ func _on_Area2D_area_entered(area):
 	limit_bottom = limit_top + size.y*2 +guioffset*gui
 	limit_right = limit_left + size.x*2
 	emit_signal("room_change",Vector2(limit_left,limit_top),area.scale,area.biomi)
+	
+	var txt = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiGUI/CanvasLayer/DisplayText/HSplit/TextItself")
+	txt.rtext.bbcode_text = "" #maybe weird place to reset text gui but oh well
 
 func _siirtyma(): #transition between rooms, not gonna use in this project I guess...
 	get_tree().paused = true

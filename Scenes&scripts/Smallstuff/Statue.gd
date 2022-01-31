@@ -9,8 +9,10 @@ var player = null
 var tekstigui = null
 export var slogan = "haist vit"
 
+signal say(something)
+
 func _ready():
-	tekstigui = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiGUI/CanvasLayer/DisplayText/HSplit/TextItself")
+	#tekstigui = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiGUI/CanvasLayer/DisplayText/HSplit/TextItself")
 	eyepos.append(left.position)
 	eyepos.append(right.position)
 	#player = get_tree().get_root().find_node("Agent") #not work stupid
@@ -33,6 +35,9 @@ func _on_Statue_body_entered(body):
 			$Moi.play()
 			left.show()
 			right.show()
+			#tekstigui.rtext.bbcode_text = slogan #alt1 "getnode purkka"
+			#emit_signal("say",slogan) #alt2 signal
+			tekstigui = find_parent("MainMenu").tekstigui #alt3 find (only common parent can help)
 			tekstigui.rtext.bbcode_text = slogan
 			tekstigui.reset()
 		player = body

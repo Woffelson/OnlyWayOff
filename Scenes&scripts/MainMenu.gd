@@ -11,6 +11,7 @@ onready var bt4 = $VBoxContainer/Buttons/VBoxContainer/Button4
 onready var speis = $VBoxContainer/Speissss
 onready var paussitaso = $PauseLayer
 onready var klik = $klik
+onready var pic = $Pic
 
 var instructions = "You can move with arrows or WASD, Z and X might do something, esc pauses game etc. Have fun, there's not much sensible to do."
 var menu_itself = null
@@ -22,6 +23,7 @@ var buttons = []
 var focused = false
 var playerfinder = null
 var dteksti = null
+var tekstigui = null
 
 func _ready():
 	menu_itself = get_node("VBoxContainer")
@@ -64,9 +66,11 @@ func instance_create(obj,creator):#xy
 
 func letsagoo(): #takes in the game
 	remove_child(menu_itself)
+	pic.hide()
 	game_view = instance_create(peli,self)
 	game = game_view.find_node("GameMain") #game is buried deep in that scene......
 	playerfinder = game.plaa
+	tekstigui = game_view.find_node("TextItself") #NOTE: find doesn't work without instance reference
 	#dteksti = game.find_node("Kontti")
 
 func _on_Button_pressed(): #continue game

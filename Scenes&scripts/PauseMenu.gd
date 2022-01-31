@@ -56,6 +56,7 @@ func _on_Button2_pressed(): #back to main menu
 	parentti.remove_child(parentti.game_view)
 	parentti.add_child(parentti.menu_itself)
 	parentti.focused = false
+	parentti.pic.show()
 	pause_off()
 
 func _on_Button3_pressed():

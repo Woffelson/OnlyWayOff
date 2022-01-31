@@ -10,13 +10,8 @@ signal lit(biomi)
 func _ready():
 	shaderi = get_node("/root/MainMenu/MainView/VBoxContainer/KonttiPeli/GameMain/Navigation2D/PaletteShader")
 
-#func _on_Lampp_area_entered(area):
-#	if area.is_in_group("Valo"):
-#		spr.animation = "on"
-#		emit_signal("lit",9)
-
 func _on_Lampp_body_entered(body):
-	if body.is_in_group("Valo"):
+	if body.is_in_group("Valo") && spr.animation == "off":
 		spr.animation = "on"
 		emit_signal("lit",9)
 		$Lit.play()

@@ -8,7 +8,7 @@ onready var wings = $Wings
 const TEST = true
 var MAXSPD = 250
 var ACCEL = 50
-var JUMP = 500
+var JUMP = 520
 var FALLCAP = 800
 #const JUMPMAX = 100
 var GRAV = 80
@@ -87,7 +87,7 @@ func grafiks():
 			hahmo.animation = "drop"
 			wings.animation = "run"
 	if is_on_floor():
-		if abs(motion.x) > 0:
+		if abs(motion.x) > 2:
 			hahmo.animation = "run"
 			wings.animation = "run"
 		else: 

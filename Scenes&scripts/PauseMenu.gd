@@ -15,6 +15,7 @@ var focused = false
 var playerfinder = null
 var parentti = null
 var instructions = ""
+var txt = null
 
 func _ready():
 	buttons.append(bt1)
@@ -50,19 +51,29 @@ func pause_off():
 func _on_Button_pressed(): #back in the game!
 	pause_off()
 
-func _on_Button2_pressed(): #back to main menu
+func _on_Button2_pressed(): #save game
 	var possi = [playerfinder.position.x,playerfinder.position.y]
 	jansson.save_data(possi,playerfinder.powerups)
+	var txt = instance_create(teksti,speis)
+	txt.rtext.bbcode_text = "Saved!"
+	parentti.klik.play()
+
+func _on_Button3_pressed(): #back to main menu
 	parentti.remove_child(parentti.game_view)
 	parentti.add_child(parentti.menu_itself)
 	parentti.focused = false
 	parentti.pic.show()
 	pause_off()
 
-func _on_Button3_pressed():
-	var txt = instance_create(teksti,speis)
-	txt.rtext.bbcode_text = instructions
-	parentti.klik.play()
-
 func _on_Button4_pressed():
 	get_tree().quit()
+
+func _on_Button5_pressed():
+	if txt == null:
+		txt = instance_create(teksti,speis)
+		txt.rtext.bbcode_text = instructions
+	else:
+		speis.remove_child(txt)
+		txt.rtext.bbcode_text = ""
+		txt = null
+	parentti.klik.play()

@@ -13,7 +13,7 @@ onready var paussitaso = $PauseLayer
 onready var klik = $klik
 onready var pic = $Pic
 
-var instructions = "You can move with arrows or WASD, Z and X might do something, esc pauses game etc. Have fun, there's not much sensible to do."
+var instructions = "You can move with arrows or WASD, X/ctrl throws an orb, esc pauses game etc. Bear in mind that -New Game- destroys the save file. And have fun, there's not much sensible to do."
 var menu_itself = null
 #var pause_menu = null
 var game = null
@@ -24,6 +24,7 @@ var focused = false
 var playerfinder = null
 var dteksti = null
 var tekstigui = null
+var txt = null
 
 func _ready():
 	menu_itself = get_node("VBoxContainer")
@@ -86,8 +87,13 @@ func _on_Button2_pressed(): #new game
 	klik.play()
 
 func _on_Button3_pressed():
-	var txt = instance_create(teksti,speis)
-	txt.rtext.bbcode_text = instructions
+	if txt == null:
+		txt = instance_create(teksti,speis)
+		txt.rtext.bbcode_text = instructions
+	else:
+		speis.remove_child(txt)
+		txt.rtext.bbcode_text = ""
+		txt = null
 	klik.play()
 
 func _on_Button4_pressed():

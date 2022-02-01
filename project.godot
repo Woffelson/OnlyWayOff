@@ -12,6 +12,8 @@ config_version=4
 
 config/name="OnlyWayOut"
 run/main_scene="res://Scenes&scripts/MainMenu.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="godot/app_userdata/OnlyWayOff"
 config/icon="res://icon.png"
 
 [display]
